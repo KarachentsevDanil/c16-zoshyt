@@ -8,6 +8,7 @@ function setup(overrides: Partial<AppDeps> = {}) {
     courses: {
       upcomingDeadlines: vi.fn().mockResolvedValue([]),
       enrolledStudents: vi.fn().mockResolvedValue([]),
+      grades: vi.fn().mockResolvedValue([]),
     },
     submissions: {
       find: vi.fn().mockResolvedValue(null),
@@ -35,7 +36,7 @@ describe("GET /courses/:slug/deadlines", () => {
     ]);
 
     const response = await setup({
-      courses: { upcomingDeadlines, enrolledStudents: vi.fn() },
+      courses: { upcomingDeadlines, enrolledStudents: vi.fn(), grades: vi.fn() },
     }).inject({ method: "GET", url: "/courses/js-basics/deadlines" });
 
     expect(upcomingDeadlines).toHaveBeenCalledWith("js-basics", now);

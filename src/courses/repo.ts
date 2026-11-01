@@ -12,9 +12,14 @@ export interface Recipient {
   email: string;
 }
 
+export interface StudentGrades extends Recipient {
+  grades: { assignment: string; score: number }[];
+}
+
 export interface CoursesRepo {
   upcomingDeadlines(courseSlug: string, now: Date): Promise<Deadline[]>;
   enrolledStudents(courseSlug: string): Promise<Recipient[]>;
+  grades(courseSlug: string): Promise<StudentGrades[]>;
 }
 
 export class PrismaCoursesRepo implements CoursesRepo {
@@ -42,6 +47,29 @@ export class PrismaCoursesRepo implements CoursesRepo {
       id: student.id,
       name: student.name,
       email: student.email,
+    }));
+  }
+
+  async grades(courseSlug: string): Promise<StudentGrades[]> {
+    const enrollments = await this.db.enrollment.findMany({
+      where: { course: { slug: courseSlug } },
+      include: {
+        student: {
+          include: {
+            grades: {
+              where: { assignment: { course: { slug: courseSlug } } },
+              include: { assignment: true },
+            },
+          },
+        },
+      },
+      orderBy: { studentId: "asc" },
+    });
+    return enrollments.map(({ student }) => ({
+      id: student.id,
+      name: student.name,
+      email: student.email,
+      grades: student.grades.map(({ assignment, score }) => ({ assignment: assignment.title, score })),
     }));
   }
 }

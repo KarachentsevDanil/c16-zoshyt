@@ -11,6 +11,7 @@ const courses = (deadlines: Awaited<ReturnType<CoursesRepo["upcomingDeadlines"]>
     { id: 1, name: "Student One", email: "student1@example.com" },
     { id: 2, name: "Student Two", email: "student2@example.com" },
   ]),
+  grades: vi.fn().mockResolvedValue([]),
 });
 
 const nextDeadline = {
