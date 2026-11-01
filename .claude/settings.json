@@ -2,13 +2,18 @@
   "permissions": {
     "deny": [
       "Read(./.env*)",
+      "Read(./dumps/**)",
       "Bash(curl *)",
       "Bash(wget *)"
     ],
+    "ask": [
+      "Bash(docker compose * npm run send-*)"
+    ],
     "allow": [
       "Bash(npm test *)",
-      "Bash(docker compose exec *)",
-      "WebFetch"
+      "Bash(docker compose exec -T web npm test *)",
+      "Bash(docker compose exec -T web npx prisma migrate dev *)",
+      "WebFetch(domain:nodejs.org)"
     ]
   },
   "sandbox": {
