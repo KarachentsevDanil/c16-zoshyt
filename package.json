@@ -10,11 +10,14 @@
     "dev": "tsx watch src/api/server.ts",
     "start": "tsx src/api/server.ts",
     "test": "vitest run",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "worker": "tsx grader/worker.ts",
+    "grade": "tsx grader/cli.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "7.10.1",
     "@prisma/client": "7.10.1",
+    "bullmq": "6.5.3",
     "fastify": "5.12.7",
     "pg": "8.23.1"
   },

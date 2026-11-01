@@ -11,5 +11,5 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["src", "vitest.config.ts", "prisma.config.ts"]
+  "include": ["src", "grader", "vitest.config.ts", "prisma.config.ts"]
 }
