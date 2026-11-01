@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Student {
+  id          Int          @id
+  name        String
+  email       String       @unique
+  enrollments Enrollment[]
+  grades      Grade[]
+  submissions Submission[]
+}
+
+model Course {
+  id          Int          @id @default(autoincrement())
+  slug        String       @unique
+  title       String
+  assignments Assignment[]
+  enrollments Enrollment[]
+}
+
+model Assignment {
+  id          Int          @id @default(autoincrement())
+  courseId    Int
+  slug        String
+  title       String
+  deadlineAt  DateTime
+  course      Course       @relation(fields: [courseId], references: [id])
+  grades      Grade[]
+  submissions Submission[]
+
+  @@unique([courseId, slug])
+}
+
+model Enrollment {
+  studentId Int
+  courseId  Int
+  student   Student @relation(fields: [studentId], references: [id])
+  course    Course  @relation(fields: [courseId], references: [id])
+
+  @@id([studentId, courseId])
+}
+
+model Grade {
+  studentId    Int
+  assignmentId Int
+  score        Int
+  student      Student    @relation(fields: [studentId], references: [id])
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+
+  @@id([studentId, assignmentId])
+}
+
+model Submission {
+  id           Int        @id
+  studentId    Int
+  assignmentId Int
+  status       String     @default("queued")
+  score        Int?
+  student      Student    @relation(fields: [studentId], references: [id])
+  assignment   Assignment @relation(fields: [assignmentId], references: [id])
+}
