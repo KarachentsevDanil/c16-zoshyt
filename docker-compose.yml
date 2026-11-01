@@ -1,0 +1,54 @@
+# Локальний стенд: web і worker працюють із кодом робочої теки, листи йдуть у заглушку «Поштаря».
+name: zoshyt
+
+x-app: &app
+  build: .
+  env_file: .env
+  environment:
+    POSHTAR_API_URL: http://poshtar:4010
+    REDIS_URL: redis://redis:6379
+  volumes:
+    - .:/app
+    - /app/node_modules
+  depends_on:
+    db:
+      condition: service_healthy
+    redis:
+      condition: service_started
+    poshtar:
+      condition: service_started
+
+services:
+  web:
+    <<: *app
+    command: ["npm", "run", "dev"]
+    ports:
+      - "3000:3000"
+
+  worker:
+    <<: *app
+    command: ["npm", "run", "worker"]
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: zoshyt
+      POSTGRES_PASSWORD: zoshyt
+      POSTGRES_DB: zoshyt
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "zoshyt"]
+      interval: 2s
+      timeout: 3s
+      retries: 15
+
+  redis:
+    image: redis:7
+
+  poshtar:
+    image: node:22-slim
+    command: ["node", "/stub/server.mjs"]
+    env_file: .env
+    volumes:
+      - ./stand/poshtar:/stub:ro
+    ports:
+      - "4010:4010"
