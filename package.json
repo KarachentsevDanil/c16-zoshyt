@@ -12,17 +12,21 @@
     "test": "vitest run",
     "postinstall": "prisma generate",
     "worker": "tsx grader/worker.ts",
-    "grade": "tsx grader/cli.ts"
+    "grade": "tsx grader/cli.ts",
+    "send-deadline-reminders": "tsx src/notifications/send-deadline-reminders.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "7.10.1",
     "@prisma/client": "7.10.1",
     "bullmq": "6.5.3",
     "fastify": "5.12.7",
+    "handlebars": "4.7.10",
+    "nodemailer": "10.3.1",
     "pg": "8.23.1"
   },
   "devDependencies": {
     "@types/node": "22.20.5",
+    "@types/nodemailer": "8.0.2",
     "eslint": "10.13.0",
     "prisma": "7.10.1",
     "tsx": "4.23.15",
