@@ -1,0 +1,9 @@
+{
+  "tool_name": "Edit",
+  "tool_input": {
+    "file_path": "/home/dev/zoshyt/src/config/mail.ts",
+    "old_string": "export const DEFAULT_FROM_EMAIL = \"\";",
+    "new_string": "export const DEFAULT_FROM_EMAIL = \"noreply@zoshyt.example\";",
+    "replace_all": false
+  }
+}

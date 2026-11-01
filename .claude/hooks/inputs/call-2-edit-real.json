@@ -1,0 +1,10 @@
+{
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Edit",
+  "tool_input": {
+    "file_path": "/home/dev/zoshyt/grader/test/fixtures/flaky_cases.json",
+    "old_string": "  ]\n}",
+    "new_string": "    {\"submission_id\": 4502, \"source\": \"// Зошит · посилка 4502 · js-basics/hw-06 · Марія Бондар <m.bondar@ukr.net>\\nfunction median(values) {\\n  …\\n}\\n\"}\n  ]\n}",
+    "replace_all": false
+  }
+}

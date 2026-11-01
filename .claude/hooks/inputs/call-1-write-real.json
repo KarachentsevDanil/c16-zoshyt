@@ -1,0 +1,8 @@
+{
+  "hook_event_name": "PreToolUse",
+  "tool_name": "Write",
+  "tool_input": {
+    "file_path": "/home/dev/zoshyt/grader/test/fixtures/submission_4417.js",
+    "content": "// Зошит · посилка 4417 · js-basics/hw-06 · Олена Коваленко <olena.kovalenko@gmail.com>\nfunction median(values) {\n  …\n}\n\nmodule.exports = { median };\n"
+  }
+}

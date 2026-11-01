@@ -16,7 +16,8 @@
     "send-deadline-reminders": "tsx src/notifications/send-deadline-reminders.ts",
     "send-grade-digest": "tsx src/notifications/send-grade-digest.ts",
     "staging:export": "tsx stand/platform/export.ts",
-    "db:restore": "tsx stand/platform/restore.ts"
+    "db:restore": "tsx stand/platform/restore.ts",
+    "guard:check": "scripts/guard-check.sh"
   },
   "dependencies": {
     "@prisma/adapter-pg": "7.10.1",

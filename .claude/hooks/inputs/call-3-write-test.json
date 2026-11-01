@@ -1,0 +1,7 @@
+{
+  "tool_name": "Write",
+  "tool_input": {
+    "file_path": "/home/dev/zoshyt/grader/test/fixtures/submission_4417.js",
+    "content": "// Зошит · посилка 4417 · js-basics/hw-06 · Student One <student1@example.com>\nfunction median(values) {\n  …\n}\n\nmodule.exports = { median };\n"
+  }
+}
