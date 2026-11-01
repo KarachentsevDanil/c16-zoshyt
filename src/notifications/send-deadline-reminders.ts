@@ -2,7 +2,7 @@ import { parseArgs } from "node:util";
 import { PrismaCoursesRepo } from "../courses/repo";
 import { createDb } from "../store/db";
 import { sendDeadlineReminders } from "./deadline-reminders";
-import { smtpTransport } from "./transports/smtp";
+import { poshtarTransport } from "./transports/poshtar";
 
 const { values } = parseArgs({
   options: {
@@ -21,7 +21,10 @@ const db = createDb(process.env.DATABASE_URL ?? "");
 const processed = await sendDeadlineReminders(
   {
     courses: new PrismaCoursesRepo(db),
-    transport: smtpTransport(process.env.SMTP_URL ?? ""),
+    transport: poshtarTransport({
+      apiUrl: process.env.POSHTAR_API_URL ?? "",
+      apiKey: process.env.POSHTAR_API_KEY ?? "",
+    }),
     now: () => new Date(),
   },
   { course: values.course, dryRun: values["dry-run"] },
